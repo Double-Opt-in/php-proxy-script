@@ -39,7 +39,7 @@ class DoubleOptInProxy
 
 			$apiResult = new stdClass();
 			$apiResult->access_token = $accessToken->access_token;
-			$apiResult->expired = time() + $apiResult->expires_in;
+			$apiResult->expired = time() + $accessToken->expires_in;
 
 			//  update cache
 			$_SESSION[$key] = $apiResult;
@@ -88,17 +88,17 @@ class DoubleOptInProxy
 		}
 		curl_close($ch);
 
-		$result = json_decode($result);
+		$result_object = json_decode($result);
 
-		if (isset($result->error))
-			throw new Exception($result->error_description);
+		if (isset($result_object->error))
+			throw new Exception($result_object->error_description);
 
-		if ( ! isset($result->access_token))
+		if ( ! isset($result_object->access_token))
 			throw new Exception('No access token in response');
 
 		if ( ! $returnAccessTokenOnly)
-			return $result;
+			return $result_object;
 
-		return $result->access_token;
+		return $result_object->access_token;
 	}
 }
