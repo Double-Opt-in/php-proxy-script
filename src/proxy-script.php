@@ -62,7 +62,7 @@ class DoubleOptInProxy
 	 */
 	public static function getAccessToken($clientId, $clientSecret, $apiEndpoint, $returnAccessTokenOnly = true)
 	{
-		$url = $apiEndpoint . '/api/access_token';
+		$url = $apiEndpoint . '/access_token';
 		$data = array(
 			'grant_type' => 'client_credentials',
 			'client_id' => $clientId,
